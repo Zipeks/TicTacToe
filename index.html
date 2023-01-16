@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="style.css" />
+        <script src="js/app.js" defer></script>
+        <script src="js/registerPlayers.js" defer></script>
+        <title>Tic Tac Toe</title>
+    </head>
+    <body>
+        <div class="blacker active"></div>
+        <div class="registerPopUp active">
+            <form action="" id="registerPlayers">
+                <div>
+                    <div>
+                        <label for="player1Name">Player1 Name</label>
+                        <input type="text" id="player1Name" minlength="3" />
+                    </div>
+                    <div>
+                        <label for="player2Name">Player2 Name</label>
+                        <input type="text" id="player2Name" minlength="3" />
+                    </div>
+                </div>
+                <div>
+                    <button id="startGame">Start game</button>
+                </div>
+            </form>
+        </div>
+        <header></header>
+        <main>
+            <div id="board"></div>
+        </main>
+    </body>
+</html>

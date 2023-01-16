@@ -1,0 +1,70 @@
+body {
+    margin: 0;
+}
+#board {
+    height: 450px;
+    width: 450px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+#board div {
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+}
+.blacker {
+    display: none;
+}
+.blacker.active {
+    position: fixed;
+    display: block;
+    z-index: 3;
+    background-color: black;
+    opacity: 0.5;
+    height: 100vh;
+    width: 100vw;
+}
+.registerPopUp {
+    height: 250px;
+    display: none;
+}
+
+.registerPopUp.active {
+    z-index: 4;
+    display: block;
+    position: fixed;
+    top: calc(50vh - 175px);
+    left: calc(50vw - 125px);
+    background-color: yellowgreen;
+    padding: 25px;
+    border-radius: 25px;
+}
+
+#registerPlayers > div:first-child {
+    height: 125px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+#registerPlayers > div:first-child > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#registerPlayers > div:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 125px;
+}
+#registerPlayers > div:last-child > button {
+    height: 50px;
+    width: 150px;
+    border-radius: 20px;
+    border: 1px solid black;
+}
