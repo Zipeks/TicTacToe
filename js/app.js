@@ -25,12 +25,14 @@ const Gameboard = ((player1, player2) => {
         }
         return true;
     }
+    const showCurrentPlayerNumber = () => currentPlayer;
     const showPlayer = () => players[currentPlayer];
 
     const nextTurn = () => {
         checkForWin();
         currentPlayer++;
         currentPlayer = currentPlayer % 2;
+        displayController.currentPlayerIndication();
     }
 
     const checkForWin = () => {
@@ -71,8 +73,9 @@ const Gameboard = ((player1, player2) => {
             }
         }
         if (win) {
-            console.log(showPlayer().name + ' has wone');
-            return true;
+            const infoPop = $('#winInfoPop');
+            infoPop.innerText = showPlayer().getName() + " has won";
+            infoPop.classList.add('winInfo');
         }
         return false;
 
@@ -80,7 +83,7 @@ const Gameboard = ((player1, player2) => {
 
     const placedTiles = () => tiles;
 
-    return { placeTile, placedTiles, nextTurn, showPlayer }
+    return { placeTile, placedTiles, nextTurn, showPlayer, showCurrentPlayerNumber }
 })();
 
 const displayController = (() => {
@@ -88,17 +91,38 @@ const displayController = (() => {
     const generateBoard = () => {
         for (let i = 0; i < 9; i++) {
             const tile = document.createElement('div');
+            tile.classList.add('open');
             tile.addEventListener('click', () => {
                 if (Gameboard.placedTiles()[i] === undefined) {
                     Gameboard.placeTile(i, Gameboard.showPlayer());
                     tile.innerText = Gameboard.showPlayer().sign;
-
                     Gameboard.nextTurn();
+                    tile.classList.remove('open');
                 }
             });
             board.appendChild(tile);
         };
     };
-    return { generateBoard };
+    const playerNames = () => {
+        const player1Name = $('#player1h1');
+        const player2Name = $('#player2h1');
+
+        player1Name.innerText = players[0].name + " " + players[0].getWins();
+        player2Name.innerText = players[1].name + " " + players[1].getWins();
+
+    };
+    const currentPlayerIndication = () => {
+        const player1Head = $('#player1Head');
+        const player2Head = $('#player2Head');
+
+        const playersHeads = [player1Head, player2Head];
+        playersHeads[Gameboard.showCurrentPlayerNumber()].classList.add('active');
+        playersHeads[(Gameboard.showCurrentPlayerNumber() + 1) % 2].classList.remove('active');
+
+    }
+    const winPopUp = () => {
+
+    };
+    return { currentPlayerIndication, generateBoard, playerNames };
 })();
 displayController.generateBoard();

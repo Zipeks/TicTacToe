@@ -1,0 +1,46 @@
+#winInfoPop {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    margin: 0px;
+    display: flex;
+    padding-top: 30vh;
+    align-items: flex-start;
+    justify-content: center;
+    font-size: 0rem;
+    left: -100vw;
+    top: -100vh;
+    backdrop-filter: blur(10px);
+}
+
+.winInfo {
+    animation-name: winInfo;
+    animation-duration: 3s;
+    animation-timing-function: ease;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+}
+
+@keyframes winInfo {
+    0% {
+        font-size: 1rem;
+        position: fixed;
+        left: 0;
+        top: 0;
+        backdrop-filter: blur(0px);
+    }
+    60% {
+        position: fixed;
+        font-size: 4rem;
+        left: 0;
+        top: 0;
+        backdrop-filter: blur(10px);
+    }
+    100% {
+        position: fixed;
+        font-size: 0rem;
+        left: 0;
+        top: 0;
+        backdrop-filter: blur(0px);
+    }
+}

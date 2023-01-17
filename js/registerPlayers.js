@@ -1,13 +1,6 @@
 const blacker = $('.blacker');
 const registerPopUp = $('.registerPopUp');
 
-// document.addEventListener('click', function (event) {
-//     const isClick = registerPopUp.contains(event.target);
-//     if (!isClick) {
-//         blacker.classList.remove('active');
-//         registerPopUp.classList.remove('active');
-//     }
-// });
 const startGame = $('#startGame');
 console.log(startGame)
 startGame.addEventListener('click', function (e) {
@@ -22,21 +15,11 @@ startGame.addEventListener('click', function (e) {
         const Player2 = player(player2Name, "o");
         players = [Player1, Player2];
 
+        displayController.playerNames();
+        displayController.currentPlayerIndication();
+
         blacker.classList.remove('active');
         registerPopUp.classList.remove('active');
     }
 });
 
-// addBookBtn.addEventListener('click', function (e) {
-//     e.preventDefault();
-
-//     const title = $('#title').value;
-//     const author = $('#author').value;
-//     const pages = $('#pages').value;
-//     const read = $('#read').checked;
-
-//     const book = new Book(title, author, pages, read);
-//     addToLibrary(book);
-//     showBooks();
-//     storeBooks();
-// })

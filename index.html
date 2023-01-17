@@ -4,12 +4,15 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="css/registerPlayers.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/win.css" />
         <script src="js/app.js" defer></script>
         <script src="js/registerPlayers.js" defer></script>
         <title>Tic Tac Toe</title>
     </head>
     <body>
+        <h1 id="winInfoPop" class=""></h1>
         <div class="blacker active"></div>
         <div class="registerPopUp active">
             <form action="" id="registerPlayers">
@@ -28,9 +31,19 @@
                 </div>
             </form>
         </div>
-        <header></header>
-        <main>
-            <div id="board"></div>
-        </main>
+        <div class="winPopUp"></div>
+        <div class="wrapper">
+            <header>
+                <div id="player1Head">
+                    <h1 id="player1h1">Player 1</h1>
+                </div>
+                <div id="player2Head">
+                    <h1 id="player2h1">Player2</h1>
+                </div>
+            </header>
+            <main>
+                <div id="board"></div>
+            </main>
+        </div>
     </body>
 </html>

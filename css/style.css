@@ -1,0 +1,76 @@
+:root {
+    --green-200: #eae7b1;
+    --green-400: #a6bb8d;
+    --green-600: #61876e;
+    --green-900: #3c6255;
+    --gray-700: #5c5761;
+    --blue-700: #343e71;
+    --blue-200: #9fa6cc;
+    --blue-500: #494775;
+}
+body {
+    background-color: var(--blue-200);
+    margin: 0px;
+    height: 100vh;
+}
+.wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 250px 1fr;
+}
+header h1 {
+    margin: 0px;
+    padding: 20px;
+    font-size: 3rem;
+}
+header h2 {
+    margin: 0px;
+    font-size: 2rem;
+}
+header {
+    grid-column: span 3;
+    grid-row: span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25%;
+}
+header div {
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid var(--blue-700);
+}
+header div.active {
+    background-color: var(--blue-500);
+}
+main {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    justify-content: center;
+}
+#board {
+    border: 3px solid var(--blue-700);
+    padding: 20px;
+    border-radius: 20px;
+    height: 300px;
+    width: 300px;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    color: var(--blue-200);
+}
+#board div {
+    border: 1px solid black;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background-color: var(--blue-700);
+}
+#board div.open {
+    cursor: pointer;
+}
