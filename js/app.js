@@ -1,10 +1,16 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const player = (name, sign) => {
-    const wins = 0;
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
-    const wonGame = () => wins++;
+const player = (name, sign) => {
+    let wins = 0;
+
+    const wonGame = () => {
+        wins++;
+    };
     const getName = () => name;
     const getWins = () => wins;
 
@@ -25,17 +31,22 @@ const Gameboard = ((player1, player2) => {
         }
         return true;
     }
+
     const showCurrentPlayerNumber = () => currentPlayer;
     const showPlayer = () => players[currentPlayer];
 
-    const nextTurn = () => {
-        checkForWin();
+    const clearTiles = () => {
+        tiles.length = 0;
+    }
+
+    const nextTurn = async () => {
+        await checkForWin();
         currentPlayer++;
         currentPlayer = currentPlayer % 2;
         displayController.currentPlayerIndication();
     }
 
-    const checkForWin = () => {
+    const checkForWin = async () => {
         let win = false;
 
         for (let i = 0; i < 3; i++) {
@@ -76,6 +87,12 @@ const Gameboard = ((player1, player2) => {
             const infoPop = $('#winInfoPop');
             infoPop.innerText = showPlayer().getName() + " has won";
             infoPop.classList.add('winInfo');
+            await sleep(3000);
+            infoPop.classList.remove('winInfo');
+
+            showPlayer().wonGame();
+
+            displayController.generateBoard();
         }
         return false;
 
@@ -83,12 +100,15 @@ const Gameboard = ((player1, player2) => {
 
     const placedTiles = () => tiles;
 
-    return { placeTile, placedTiles, nextTurn, showPlayer, showCurrentPlayerNumber }
+    return { placeTile, placedTiles, nextTurn, showPlayer, showCurrentPlayerNumber, clearTiles }
 })();
 
 const displayController = (() => {
     const board = $('#board');
     const generateBoard = () => {
+        playerNames();
+        Gameboard.clearTiles();
+        board.innerHTML = '';
         for (let i = 0; i < 9; i++) {
             const tile = document.createElement('div');
             tile.classList.add('open');
@@ -103,6 +123,7 @@ const displayController = (() => {
             board.appendChild(tile);
         };
     };
+
     const playerNames = () => {
         const player1Name = $('#player1h1');
         const player2Name = $('#player2h1');
@@ -120,9 +141,6 @@ const displayController = (() => {
         playersHeads[(Gameboard.showCurrentPlayerNumber() + 1) % 2].classList.remove('active');
 
     }
-    const winPopUp = () => {
 
-    };
-    return { currentPlayerIndication, generateBoard, playerNames };
+    return { currentPlayerIndication, generateBoard };
 })();
-displayController.generateBoard();

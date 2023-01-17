@@ -8,6 +8,12 @@
     --blue-200: #9fa6cc;
     --blue-500: #494775;
 }
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap");
+
+@font-face {
+    font-family: tropical-Asian;
+    src: url(../fonts/TropicalAsian.ttf);
+}
 body {
     background-color: var(--blue-200);
     margin: 0px;
@@ -40,9 +46,12 @@ header div {
     text-align: center;
     border-radius: 20px;
     border: 1px solid var(--blue-700);
+    background-color: #a78bfa;
+    transition: 0.4s;
 }
 header div.active {
-    background-color: var(--blue-500);
+    background-color: #7c3aed;
+    transition: 0.4s;
 }
 main {
     grid-column: 2/3;
@@ -63,12 +72,13 @@ main {
     color: var(--blue-200);
 }
 #board div {
-    border: 1px solid black;
+    font-family: tropical-Asian;
+    border-radius: 20px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 4rem;
     background-color: var(--blue-700);
 }
 #board div.open {

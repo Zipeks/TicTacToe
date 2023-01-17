@@ -23,7 +23,7 @@
     position: fixed;
     top: calc(50vh - 175px);
     left: calc(50vw - 210px);
-    background-color: yellowgreen;
+    background-color: #a78bfa;
     padding: 25px;
     border-radius: 25px;
 }

@@ -14,8 +14,7 @@ startGame.addEventListener('click', function (e) {
         const Player1 = player(player1Name, "x");
         const Player2 = player(player2Name, "o");
         players = [Player1, Player2];
-
-        displayController.playerNames();
+        displayController.generateBoard();
         displayController.currentPlayerIndication();
 
         blacker.classList.remove('active');
