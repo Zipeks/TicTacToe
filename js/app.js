@@ -4,6 +4,9 @@ const $$ = document.querySelectorAll.bind(document);
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
 const player = (name, sign) => {
     let wins = 0;
@@ -16,8 +19,7 @@ const player = (name, sign) => {
 
     return { name, sign, wonGame, getName, getWins };
 }
-// const Player1 = player('Julek', 'x');
-// const Player2 = player('Marian', 'o');
+
 let players;
 
 const Gameboard = ((player1, player2) => {
@@ -40,7 +42,35 @@ const Gameboard = ((player1, player2) => {
     }
 
     const nextTurn = async () => {
-        await checkForWin();
+        const infoPop = $('#winInfoPop');
+        if (checkForWin()) {
+
+            const block = $('#blockPageDiv');
+            block.classList.add('blockPage');
+
+            await sleep(1000);
+
+            infoPop.innerText = showPlayer().getName() + " has won";
+
+            infoPop.classList.add('winInfo');
+            await sleep(3000);
+            infoPop.classList.remove('winInfo');
+
+            showPlayer().wonGame();
+            displayController.generateBoard();
+            displayController.playerNames();
+
+            block.classList.remove('blockPage');
+
+        } else if (checkForDraw()) {
+
+            infoPop.innerText = "It's a draw";
+            infoPop.classList.add('winInfo');
+            await sleep(3000);
+            infoPop.classList.remove('winInfo');
+
+            displayController.generateBoard();
+        };
         currentPlayer++;
         currentPlayer = currentPlayer % 2;
         displayController.currentPlayerIndication();
@@ -54,14 +84,14 @@ const Gameboard = ((player1, player2) => {
         return true;
 
     }
-    const checkForWin = async () => {
-        let win = false;
+    const checkForWin = () => {
         const wininginTiles = [];
+        let win = false;
         for (let i = 0; i < 3; i++) {
             if (tiles[i] === undefined) {
                 continue;
             }
-            if ((tiles[i] === tiles[i + 3]) && (tiles[i] === tiles[i + 6])) {
+            else if ((tiles[i] === tiles[i + 3]) && (tiles[i] === tiles[i + 6])) {
                 wininginTiles.push(i, i + 3, i + 6);
                 win = true;
                 break;
@@ -72,7 +102,7 @@ const Gameboard = ((player1, player2) => {
                 if (tiles[i] === undefined) {
                     continue;
                 }
-                if ((tiles[i] === tiles[i + 1]) && (tiles[i] === tiles[i + 2])) {
+                else if ((tiles[i] === tiles[i + 1]) && (tiles[i] === tiles[i + 2])) {
                     win = true;
                     wininginTiles.push(i, i + 1, i + 2);
 
@@ -97,32 +127,13 @@ const Gameboard = ((player1, player2) => {
                 }
             }
         }
-
-        const infoPop = $('#winInfoPop');
         if (win) {
-
             displayController.showWinningTiles(wininginTiles);
-            await sleep(1000);
-            infoPop.innerText = showPlayer().getName() + " has won";
-            infoPop.classList.add('winInfo');
-            await sleep(3000);
-            infoPop.classList.remove('winInfo');
 
-            showPlayer().wonGame();
-
-            displayController.generateBoard();
-        } else if (checkForDraw()) {
-
-            infoPop.innerText = "It's a draw";
-            infoPop.classList.add('winInfo');
-            await sleep(3000);
-            infoPop.classList.remove('winInfo');
-
-            displayController.generateBoard();
-
+            return true;
+        } else {
+            return false;
         }
-        return false;
-
     }
 
     const placedTiles = () => tiles;
@@ -132,24 +143,36 @@ const Gameboard = ((player1, player2) => {
 
 const displayController = (() => {
     const board = $('#board');
-    const generateBoard = () => {
-        playerNames();
-        Gameboard.clearTiles();
+    const tilesDiv = [];
+
+    const generateBoard = async () => {
         board.innerHTML = '';
+        tilesDiv.length = 0;
+        Gameboard.clearTiles();
         for (let i = 0; i < 9; i++) {
             const tile = document.createElement('div');
+
             tile.classList.add('open');
+            tile.dataset.number = i;
+            tilesDiv.push(tile);
+
             tile.addEventListener('click', () => {
                 if (Gameboard.placedTiles()[i] === undefined) {
-                    Gameboard.placeTile(i, Gameboard.showPlayer());
-                    tile.innerText = Gameboard.showPlayer().sign;
+
+                    placeSign(Number(tile.dataset.number));
+
                     Gameboard.nextTurn();
+
                     tile.classList.remove('open');
                 }
             });
             board.appendChild(tile);
         };
     };
+    const placeSign = (i) => {
+        Gameboard.placeTile(i, Gameboard.showPlayer());
+        tilesDiv[i].innerText = Gameboard.showPlayer().sign;
+    }
 
     const playerNames = () => {
         const player1Name = $('#player1h1');
@@ -184,7 +207,24 @@ const displayController = (() => {
         tile2.classList.remove('won');
         tile3.classList.remove('won');
 
-
     }
-    return { currentPlayerIndication, generateBoard, showWinningTiles };
+    return { currentPlayerIndication, generateBoard, showWinningTiles, placeSign, playerNames };
+})();
+
+const computer = (() => {
+    const makeMove = () => {
+        const freeTiles = [];
+        const tiles = Gameboard.placedTiles();
+
+        for (let i = 0; i < 9; i++) {
+            if (tiles[i] === undefined) {
+                freeTiles.push(i);
+            }
+        }
+
+        const amountOfSpaces = freeTiles.length;
+
+        Gameboard.placeTile(getRandomArbitrary(0, amountOfSpaces), Gameboard.showPlayer());
+    }
+    return { makeMove }
 })();

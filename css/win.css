@@ -21,7 +21,11 @@
     animation-direction: normal;
     animation-iteration-count: 1;
 }
-
+.blockPage {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+}
 @keyframes winInfo {
     0% {
         font-size: 1rem;

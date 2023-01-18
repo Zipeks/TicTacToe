@@ -21,19 +21,37 @@
     z-index: 4;
     display: block;
     position: fixed;
-    top: calc(50vh - 175px);
+    top: 25vh;
     left: calc(50vw - 210px);
-    background-color: #a78bfa;
+    border: 1px solid var(--blue-700);
+    background-color: var(--blue-200);
     padding: 25px;
     border-radius: 25px;
 }
-
+.registerPopUp label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+.registerPopUp input {
+    box-sizing: border-box;
+    border-radius: 25px;
+    padding-left: 10px;
+    font-size: 1rem;
+    height: auto;
+    width: 100%;
+    border: 1px solid var(--blue-700);
+}
 #registerPlayers > div:first-child {
     height: 125px;
     display: flex;
     align-items: center;
     gap: 20px;
     justify-content: center;
+}
+@media screen and (max-width: 375px) {
+    #registerPlayers > div:first-child {
+        flex-direction: column;
+    }
 }
 #registerPlayers > div:first-child > div {
     display: flex;
@@ -50,5 +68,7 @@
     height: 50px;
     width: 150px;
     border-radius: 20px;
-    border: 1px solid black;
+    border: 1px solid var(--blue-200);
+    background-color: var(--blue-700);
+    color: white;
 }

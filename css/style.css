@@ -9,6 +9,8 @@
     --blue-200: #9fa6cc;
     --blue-500: #494775;
     --blue-700: #343e71;
+
+    --purple-700: #7c3aed;
 }
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap");
 
@@ -43,6 +45,18 @@ header {
     justify-content: center;
     align-items: center;
     gap: 25%;
+}
+@media screen and (max-width: 1024px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+    }
+    header h1 {
+        font-size: 2rem;
+    }
+    header h2 {
+        font-size: 1rem;
+    }
 }
 header div {
     text-align: center;
