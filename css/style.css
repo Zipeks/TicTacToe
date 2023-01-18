@@ -3,10 +3,12 @@
     --green-400: #a6bb8d;
     --green-600: #61876e;
     --green-900: #3c6255;
+
     --gray-700: #5c5761;
-    --blue-700: #343e71;
+
     --blue-200: #9fa6cc;
     --blue-500: #494775;
+    --blue-700: #343e71;
 }
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap");
 
@@ -47,10 +49,12 @@ header div {
     border-radius: 20px;
     border: 1px solid var(--blue-700);
     background-color: #a78bfa;
+    background-color: #6a729f;
     transition: 0.4s;
 }
 header div.active {
     background-color: #7c3aed;
+    background-color: var(--blue-700);
     transition: 0.4s;
 }
 main {
@@ -80,7 +84,17 @@ main {
     justify-content: center;
     font-size: 4rem;
     background-color: var(--blue-700);
+    transition: transform 0.1s;
+}
+#board div.open:hover {
+    transition: transform 0.1s;
+    transform: scale(1.05);
 }
 #board div.open {
     cursor: pointer;
+}
+#board div.won {
+    transform: scale(1.07);
+    background-color: #61876e;
+    transition: 1s;
 }
