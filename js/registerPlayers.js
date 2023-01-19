@@ -2,7 +2,6 @@ const blacker = $('.blacker');
 const registerPopUp = $('.registerPopUp');
 
 const startGame = $('#startGame');
-console.log(startGame)
 startGame.addEventListener('click', function (e) {
 
     e.preventDefault();
