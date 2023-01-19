@@ -4,8 +4,10 @@ const $$ = document.querySelectorAll.bind(document);
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
 }
 
 const player = (name, sign) => {
@@ -22,7 +24,9 @@ const player = (name, sign) => {
 
 let players;
 
-const Gameboard = ((player1, player2) => {
+const Gameboard = (() => {
+    let gameAgainstComputer = false;
+    const gameAgainstComputerSet = () => gameAgainstComputer = true;
     const tiles = [];
     let currentPlayer = 0;
     const placeTile = (n, player) => {
@@ -43,9 +47,10 @@ const Gameboard = ((player1, player2) => {
 
     const nextTurn = async () => {
         const infoPop = $('#winInfoPop');
+        const block = $('#blockPageDiv');
+
         if (checkForWin()) {
 
-            const block = $('#blockPageDiv');
             block.classList.add('blockPage');
 
             await sleep(1000);
@@ -74,6 +79,17 @@ const Gameboard = ((player1, player2) => {
         currentPlayer++;
         currentPlayer = currentPlayer % 2;
         displayController.currentPlayerIndication();
+
+        if ((gameAgainstComputer) && (currentPlayer === 1)) {
+            block.classList.add('blockPage');
+
+            const timeToMove = getRandomInt(500, 2000);
+            await sleep(timeToMove);
+            computer.makeMoveRandom();
+            block.classList.remove('blockPage');
+
+        }
+
     }
     const checkForDraw = () => {
         for (let i = 0; i < 9; i++) {
@@ -138,7 +154,7 @@ const Gameboard = ((player1, player2) => {
 
     const placedTiles = () => tiles;
 
-    return { placeTile, placedTiles, nextTurn, showPlayer, showCurrentPlayerNumber, clearTiles }
+    return { placeTile, placedTiles, nextTurn, showPlayer, showCurrentPlayerNumber, clearTiles, gameAgainstComputerSet }
 })();
 
 const displayController = (() => {
@@ -212,7 +228,8 @@ const displayController = (() => {
 })();
 
 const computer = (() => {
-    const makeMove = () => {
+
+    const makeMoveRandom = () => {
         const freeTiles = [];
         const tiles = Gameboard.placedTiles();
 
@@ -224,7 +241,12 @@ const computer = (() => {
 
         const amountOfSpaces = freeTiles.length;
 
-        Gameboard.placeTile(getRandomArbitrary(0, amountOfSpaces), Gameboard.showPlayer());
+        const randomPlace = freeTiles[getRandomInt(0, amountOfSpaces)];
+        console.log(randomPlace);
+
+        Gameboard.placeTile(randomPlace, Gameboard.showPlayer());
+        displayController.placeSign(randomPlace);
+        Gameboard.nextTurn();
     }
-    return { makeMove }
+    return { makeMoveRandom }
 })();

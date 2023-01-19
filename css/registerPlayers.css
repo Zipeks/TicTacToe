@@ -32,7 +32,7 @@
     font-size: 1.2rem;
     margin-bottom: 10px;
 }
-.registerPopUp input {
+.registerPopUp input[type="text"] {
     box-sizing: border-box;
     border-radius: 25px;
     padding-left: 10px;
@@ -62,7 +62,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 125px;
 }
 #registerPlayers > div:last-child > button {
     height: 50px;
@@ -71,4 +70,18 @@
     border: 1px solid var(--blue-200);
     background-color: var(--blue-700);
     color: white;
+}
+.selectOponent {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.selectOponent label {
+    font-size: 1rem;
+    margin-top: 40px;
+    margin-top: 10px;
+}
+.selectOponent label:first-child {
+    margin-top: 0px;
 }
